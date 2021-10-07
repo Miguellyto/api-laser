@@ -45,9 +45,14 @@ exports.listAllProducts = async (req, res) => {
       [nome, quantidade, preco, sku]
     );
   
-    res.status(200).send({ message: 'Produto Atualizado com Successo' });
-  };
-  
+  res.status(200).send({ 
+    message: 'Produto Atualizado com Successo', 
+    body: {
+      order: { sku, nome, quantidade, preco }
+    },
+  });
+};
+
   //  Excluí um Produto pelo Id:
   exports.deleteProductById = async (req, res) => {
     const sku = parseInt(req.params.id);
@@ -57,3 +62,11 @@ exports.listAllProducts = async (req, res) => {
   
     res.status(200).send({ message: 'Produto excluído com successo', sku });
   };
+
+/*   res.status(200).send({ 
+    message: 'Produto excluído com Successo', 
+    body: {
+      order: { sku, nome, quantidade, preco }
+    },
+  });
+}; */

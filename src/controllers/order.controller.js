@@ -1,17 +1,17 @@
 const db = require("../config/database");
 
-// cria um novo Pedido:
+////cria um novo Pedido:
 exports.createOrder = async (req, res) => {
-  const { nome, quantidade, preco } = req.body;
+  const { id_produto, quantidade } = req.body;
   const { rows } = await db.query(
-    'INSERT INTO pedidos (nome, quantidade, preco) VALUES ($1, $2, $3)',
-    [nome, quantidade, preco],
+    'INSERT INTO pedidos (id_produto, quantidade) VALUES ($1, $2)',
+    [id_produto, quantidade],
   );
 
   res.status(201).send({
     message: 'Pedido Adicionado com Successo',
     body: {
-      order: { nome, quantidade, preco }
+      order: { id_produto, quantidade }
     },
   });
 };
@@ -19,7 +19,7 @@ exports.createOrder = async (req, res) => {
 //  Lista todos os Pedidos:
 exports.listAllOrders = async (req, res) => {
     const response = await db.query(
-      'SELECT * FROM pedidos ORDER BY sku ASC',
+      'SELECT * FROM pedidos ORDER BY id_pedido ASC',
       //'SELECT * FROM pedidos ORDER BY nome DESC',
     );
     res.status(200).send(response.rows);
@@ -27,33 +27,38 @@ exports.listAllOrders = async (req, res) => {
   
   //  Seleciona Pedido pelo Id:
   exports.findOrderById = async (req, res) => {
-    const sku = parseInt(req.params.id);
+    const id_pedido = parseInt(req.params.id);
     const response = await db.query(
-      'SELECT * FROM pedidos WHERE sku = $1',
-      [sku],
+      'SELECT * FROM pedidos WHERE id_pedido = $1',
+      [id_pedido],
     );
     res.status(200).send(response.rows);
   };
   
-  //  Atualiza um Pedido pelo Id:
+  //  Atualiza um Pedido pelo Id: --Rota apenas para testes
   exports.updateOrderById = async (req, res) => {
-    const sku = parseInt(req.params.id);
-    const { nome, quantidade, preco } = req.body;
+    const id_pedido = parseInt(req.params.id);
+    const { id_produto, quantidade } = req.body;
   
     const response = await db.query(
-      'UPDATE pedidos SET nome = $1, quantidade = $2, preco = $3 WHERE sku = $4',
-      [nome, quantidade, preco, sku]
+      'UPDATE pedidos SET id_produto = $1, quantidade = $2 WHERE id_produto = $3',
+      [id_produto, quantidade, id_pedido]
     );
   
-    res.status(200).send({ message: 'Pedidos Atualizado com Successo' });
-  };
+    res.status(200).send({ 
+    message: 'Pedido Atualizado com Successo', 
+    body: {
+      order: { id_pedido, id_produto, quantidade }
+    },
+  });
+};
   
-  //  Excluí um Pedido pelo Id:
+  ////Excluí um Pedido pelo Id:
   exports.deleteOrderById = async (req, res) => {
-    const sku = parseInt(req.params.id);
-    await db.query('DELETE FROM pedidos WHERE sku = $1', 
-    [sku]
+    const id_pedido = parseInt(req.params.id);
+    await db.query('DELETE FROM pedidos WHERE id_pedido = $1', 
+    [id_pedido]
       );
   
-    res.status(200).send({ message: 'Pedido excluído com successo', sku });
+    res.status(200).send({ message: 'Pedido Excluído com Successo', id_pedido });
   };
