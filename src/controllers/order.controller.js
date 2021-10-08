@@ -12,6 +12,7 @@ exports.createOrder = async (req, res) => {
     message: 'Pedido Adicionado com Successo',
     body: {
       order: { id_produto, quantidade }
+      
     },
   });
 };
