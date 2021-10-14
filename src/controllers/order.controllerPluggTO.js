@@ -1,6 +1,26 @@
-////Get One Order For ID
+const db = require("../config/database");
 const fetch = require('node-fetch');
 
+////Get All Orders
+exports.listAllOrders = async (req, res) => {
+  const url = 'https://api.plugg.to/orders';
+  const options = {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer {ACCESS_TOKEN}',
+      'Content-Type': 'application/json'
+    }
+  };
+};
+
+fetch(url, options)
+.then(res => res.json())
+.then(json => console.log(json))
+.catch(err => console.error('error:' + err));
+
+////Get One Order For ID
+exports.findOrderById = async (req, res) => {
 const url = 'https://api.plugg.to/orders/plugg_order_id';
 const options = {
   method: 'GET',
@@ -10,21 +30,24 @@ const options = {
     'Content-Type': 'application/json'
   }
 };
+}; 
 
 fetch(url, options)
   .then(res => res.json())
   .then(json => console.log(json))
   .catch(err => console.error('error:' + err));
 
-////Get All Orders
-const url = 'https://api.plugg.to/orders';
-const options = {
-  method: 'GET',
-  headers: {
+////Status Update Order
+exports.updateOrderById = async (req, res) => {  
+  const url = 'https://api.plugg.to/orders/plugg_id';
+  const options = {
+    method: 'PUT',
+    headers: {
     Accept: 'application/json',
     Authorization: 'Bearer {ACCESS_TOKEN}',
     'Content-Type': 'application/json'
   }
+};
 };
 
 fetch(url, options)
@@ -32,23 +55,7 @@ fetch(url, options)
   .then(json => console.log(json))
   .catch(err => console.error('error:' + err));
 
-////Status Update Order  
-const url = 'https://api.plugg.to/orders/plugg_id';
-const options = {
-  method: 'PUT',
-  headers: {
-    Accept: 'application/json',
-    Authorization: 'Bearer {ACCESS_TOKEN}',
-    'Content-Type': 'application/json'
-  }
-};
-
-fetch(url, options)
-  .then(res => res.json())
-  .then(json => console.log(json))
-  .catch(err => console.error('error:' + err));
-
-////Order receipt confirmation
+////----Order receipt confirmation----////
 const url = 'https://api.plugg.to/orders/plugg_id_order';
 const options = {
   method: 'PUT',
