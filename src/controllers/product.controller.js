@@ -4,7 +4,7 @@ const db = require("../config/database");
 exports.createProduct = async (req, res) => {
   const { nome, quantidade, preco } = req.body;
   const { rows } = await db.query(
-    'INSERT INTO produtos (nome, quantidade, preco) VALUES ($1, $2, $3)',
+    'INSERT INTO products (nome, quantidade, preco) VALUES ($1, $2, $3)',
     [nome, quantidade, preco],
   );
 
@@ -16,11 +16,11 @@ exports.createProduct = async (req, res) => {
   });
 };
 
-//  Lista todos os Produtos:
+//  Lista todos os products:
 exports.listAllProducts = async (req, res) => {
     const response = await db.query(
-      'SELECT * FROM produtos ORDER BY sku ASC',
-      //'SELECT * FROM produtos ORDER BY nome DESC',
+      'SELECT * FROM products ORDER BY sku ASC',
+      //'SELECT * FROM products ORDER BY nome DESC',
     );
     res.status(200).send(response.rows);
   };
@@ -29,19 +29,19 @@ exports.listAllProducts = async (req, res) => {
   exports.findProductById = async (req, res) => {
     const sku = parseInt(req.params.id);
     const response = await db.query(
-      'SELECT * FROM produtos WHERE sku = $1',
+      'SELECT * FROM products WHERE sku = $1',
       [sku],
     );
     res.status(200).send(response.rows);
   };
   
-  //  Atualiza um Produto pelo Id:
+  //  Atualiza um Produto pelo Id: --Atualizar todos as colunas do registro.
   exports.updateProductById = async (req, res) => {
     const sku = parseInt(req.params.id);
     const { nome, quantidade, preco } = req.body;
   
     const response = await db.query(
-      'UPDATE produtos SET nome = $1, quantidade = $2, preco = $3 WHERE sku = $4',
+      'UPDATE products SET nome = $1, quantidade = $2, preco = $3 WHERE sku = $4',
       [nome, quantidade, preco, sku]
     );
   
@@ -56,7 +56,7 @@ exports.listAllProducts = async (req, res) => {
   //  Excluí um Produto pelo Id:
   exports.deleteProductById = async (req, res) => {
     const sku = parseInt(req.params.id);
-    await db.query('DELETE FROM produtos WHERE sku = $1', 
+    await db.query('DELETE FROM products WHERE sku = $1', 
     [sku]
       );
   
