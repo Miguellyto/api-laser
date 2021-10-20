@@ -22,12 +22,6 @@ exports.createProduct = async (req, res) => {
       //new Date().toISOString().replace(/:/g, '-') + '-',
       //new Date().toISOString(),
       //moment.utc().format('YYYY-MM-DD HH:mm:ss'),
-
-      /*       createdAt: {
-      type: Sequelize.DATEONLY,
-      allowNull: false,
-      defaultValue: Sequelize.NOW,
-    }, */
      
     },
 
@@ -118,7 +112,7 @@ exports.listAllProducts = async (req, res) => {
     [sku]
       );
   
-    res.status(200).send({ message: 'Produto excluído com successo', sku, deleteAt: moment().format('YYYY-MM-DD HH:mm:ss'), });
+    res.status(200).send({ message: 'Produto excluído com successo', sku, deletedAt: moment().format('YYYY-MM-DD HH:mm:ss'), });
   };
 
 /*   res.status(200).send({ 
