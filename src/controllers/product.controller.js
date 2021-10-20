@@ -1,4 +1,9 @@
 const db = require("../config/database");
+//const moment = require('moment-timezone');
+const Sequelize = require('sequelize');
+const DataTypes = require('sequelize/lib/data-types');
+//const moment = require('moment-timezone');
+const moment = require('moment');
 
 // cria um novo Produto:
 exports.createProduct = async (req, res) => {
@@ -11,8 +16,60 @@ exports.createProduct = async (req, res) => {
   res.status(201).send({
     message: 'Produto Adicionado com Successo',
     body: {
-      product: { nome, quantidade, preco }
+      product: { nome, quantidade, preco },
+      createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
+      
+      //new Date().toISOString().replace(/:/g, '-') + '-',
+      //new Date().toISOString(),
+      //moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+
+      /*       createdAt: {
+      type: Sequelize.DATEONLY,
+      allowNull: false,
+      defaultValue: Sequelize.NOW,
+    }, */
+     
     },
+
+    ///////////////
+/*     createdAt: {
+      type: DataTypes.NOW,
+      allowNull: false,
+      defaultValue: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+      field: 'createdAt'
+    }, */
+
+/*     createdAt: {
+      allowNull: false,
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.fn('NOW'),
+    },
+    updatedAt: {
+      allowNull: false,
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.fn('NOW'),
+    }, */
+
+/*     createdAt: {
+      field: 'created_at',
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
+  }, */
+
+/*   created_at: {
+    type: 'TIMESTAMP',
+    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+    allowNull: false
+  }, */
+
+/*   createdAt: {
+    type: DataTypes.NOW,
+    //allowNull: false,
+    creationDate: moment.utc().format('YYYY-MM-DD HH:mm:ss'),
+    //field: 'createdAt'
+  }, */
+
   });
 };
 
@@ -48,7 +105,8 @@ exports.listAllProducts = async (req, res) => {
   res.status(200).send({ 
     message: 'Produto Atualizado com Successo', 
     body: {
-      order: { sku, nome, quantidade, preco }
+      order: { sku, nome, quantidade, preco },
+      updatedAt: moment().format('YYYY-MM-DD HH:mm:ss'),
     },
   });
 };
@@ -60,7 +118,7 @@ exports.listAllProducts = async (req, res) => {
     [sku]
       );
   
-    res.status(200).send({ message: 'Produto excluído com successo', sku });
+    res.status(200).send({ message: 'Produto excluído com successo', sku, deleteAt: moment().format('YYYY-MM-DD HH:mm:ss'), });
   };
 
 /*   res.status(200).send({ 
