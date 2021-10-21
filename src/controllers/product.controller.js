@@ -17,7 +17,7 @@ exports.createProduct = async (req, res) => {
     message: 'Produto Adicionado com Successo',
     body: {
       product: { nome, quantidade, preco },
-      createdAt: moment().format('YYYY-MM-DD HH:mm:ss'),
+      /* createdAt: moment().format('YYYY-MM-DD HH:mm:ss'), */
       
       //new Date().toISOString().replace(/:/g, '-') + '-',
       //new Date().toISOString(),
@@ -100,7 +100,7 @@ exports.listAllProducts = async (req, res) => {
     message: 'Produto Atualizado com Successo', 
     body: {
       order: { sku, nome, quantidade, preco },
-      updatedAt: moment().format('YYYY-MM-DD HH:mm:ss'),
+      /* updatedAt: moment().format('YYYY-MM-DD HH:mm:ss'), */
     },
   });
 };
