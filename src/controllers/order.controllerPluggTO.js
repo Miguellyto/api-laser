@@ -12,12 +12,12 @@ exports.listAllOrders = async (req, res) => {
       'Content-Type': 'application/json'
     }
   };
+  fetch(url, options)
+  .then(res => res.json())
+  .then(json => console.log(json))
+  .catch(err => console.error('error:' + err));
 };
 
-fetch(url, options)
-.then(res => res.json())
-.then(json => console.log(json))
-.catch(err => console.error('error:' + err));
 
 ////Get One Order For ID
 exports.findOrderById = async (req, res) => {
@@ -30,12 +30,11 @@ const options = {
     'Content-Type': 'application/json'
   }
 };
-}; 
-
-fetch(url, options)
+  fetch(url, options)
   .then(res => res.json())
   .then(json => console.log(json))
   .catch(err => console.error('error:' + err));
+}; 
 
 ////Status Update Order
 exports.updateOrderById = async (req, res) => {  
@@ -48,14 +47,15 @@ exports.updateOrderById = async (req, res) => {
     'Content-Type': 'application/json'
   }
 };
-};
-
-fetch(url, options)
+  fetch(url, options)
   .then(res => res.json())
   .then(json => console.log(json))
   .catch(err => console.error('error:' + err));
+};
+
 
 ////----Order receipt confirmation----////
+exports.createOrder = async (req, res) => { 
 const url = 'https://api.plugg.to/orders/plugg_id_order';
 const options = {
   method: 'PUT',
@@ -66,11 +66,11 @@ const options = {
   },
   body: JSON.stringify({external: 'external id', ack: true})
 };
-
-fetch(url, options)
+  fetch(url, options)
   .then(res => res.json())
   .then(json => console.log(json))
   .catch(err => console.error('error:' + err));
+};
 
 ////Update invoice (Fatura)
 const url = 'https://api.plugg.to/orders/pluggto_order_id';
