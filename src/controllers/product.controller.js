@@ -40,8 +40,7 @@ exports.listAllProducts = async (req, res) => {
       join fator b
       on a.chave = b.recursoorig
       and b.tabfator = 462894
-      and b.fim is null
-      `,
+      and b.fim is null`,
       //'SELECT * FROM products ORDER BY nome DESC',
     );
     res.status(200).send(response.rows);
