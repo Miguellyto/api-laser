@@ -1,5 +1,5 @@
 const db = require("../config/database");
-const fetch = require('node-fetch');
+//const fetch = require('node-fetch');
 
 ////Get All Orders
 exports.listAllOrders = async (req, res) => {
@@ -18,9 +18,9 @@ exports.listAllOrders = async (req, res) => {
   .catch(err => console.error('error:' + err));
 };
 
-
 ////Get One Order For ID
 exports.findOrderById = async (req, res) => {
+//const url = 'https://api.plugg.to/orders';
 const url = 'https://api.plugg.to/orders/plugg_order_id';
 const options = {
   method: 'GET',
@@ -71,53 +71,3 @@ const options = {
   .then(json => console.log(json))
   .catch(err => console.error('error:' + err));
 };
-
-////Update invoice (Fatura)
-const url = 'https://api.plugg.to/orders/pluggto_order_id';
-const options = {
-  method: 'PUT',
-  headers: {
-    Accept: 'application/json',
-    Authorization: 'Bearer {ACCESS_TOKEN}',
-    'Content-Type': 'application/json'
-  }
-};
-
-fetch(url, options)
-  .then(res => res.json())
-  .then(json => console.log(json))
-  .catch(err => console.error('error:' + err));
-
-////Update invoices by documents (Atualizar faturas por documentos)
-const url = 'https://api.plugg.to/orders/plugg_order_id';
-const options = {
-  method: 'PUT',
-  headers: {
-    Accept: 'application/json',
-    Authorization: 'Bearer {ACCESS_TOKEN}',
-    'Content-Type': 'application/json'
-  }
-};
-
-fetch(url, options)
-  .then(res => res.json())
-  .then(json => console.log(json))
-  .catch(err => console.error('error:' + err));
-
-////Update Order Tracking Status (Rastreio)
-const url = 'https://api.plugg.to/orders/plugg_id';
-const options = {
-  method: 'PUT',
-  headers: {
-    Accept: 'application/json',
-    Authorization: 'Bearer {ACCESS_TOKEN}',
-    'Content-Type': 'application/json'
-  }
-};
-
-fetch(url, options)
-  .then(res => res.json())
-  .then(json => console.log(json))
-  .catch(err => console.error('error:' + err));  
-
-////Get Labels

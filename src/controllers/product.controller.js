@@ -42,7 +42,7 @@ exports.listAllProducts = async (req, res) => {
       and b.tabfator = 462894
       and b.fim is null
       ORDER BY nome ASC`,
-      //and b.tabfator = 5789394 "TAB ECOMMERCE"
+      //and b.tabfator = 5789394 "TAB ECOMMERCE" 462894
       //'SELECT * FROM products ORDER BY sku ASC',
       //'SELECT * FROM products ORDER BY nome DESC',
     );
@@ -88,6 +88,6 @@ exports.listAllProducts = async (req, res) => {
       and b.fim is null
       where codigo = $1`, 
       [sku], 
-    );//and b.tabfator = 5789394 "TAB ECOMMERCE"
+    );//and b.tabfator = 5789394 "TAB ECOMMERCE" 462894
     res.status(200).send(response.rows);
   };

@@ -7,6 +7,7 @@ const app = express();
 const index = require('./routes/index');
 const productRoute = require('./routes/product.routes');
 const orderRoute = require('./routes/order.routes');
+const orderRoutePluggTO = require('./routes/order.routesPluggTO'); 
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -26,5 +27,6 @@ app.use(express.json({ type: 'application/vnd.api+json' }));
 app.use(index);
 app.use('/api/', productRoute);
 app.use('/api/', orderRoute);
+app.use('/api/', orderRoutePluggTO);
 
 module.exports = app;
