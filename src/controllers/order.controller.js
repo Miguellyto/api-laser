@@ -1,6 +1,31 @@
-const db = require("../config/database");
+//const db = require("../config/database");
+//const fetch = require('node-fetch');
+const { default: axios } = require('axios');
 
-////cria um novo Pedido:
+// Get All Orders
+exports.listAllOrders = async (req, res) => {
+try {
+  const { data } = await axios.get('http://jsonplaceholder.typicode.com/users');
+  return res.send({ data });
+
+} catch (error) {
+  res.send({ error: error.message});
+}
+};
+
+// Get One Order For ID
+exports.findOrderById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const { data } = await axios.get(`http://jsonplaceholder.typicode.com/users/${id}`);
+    return res.send({ data });
+
+  } catch (error) {
+    res.send({ error: error.message});
+  }
+  };
+
+  // Create Order PluggTO on DataBase
 exports.createOrder = async (req, res) => {
   const { id_produto, quantidade } = req.body;
   const { rows } = await db.query(
@@ -9,57 +34,98 @@ exports.createOrder = async (req, res) => {
   );
 
   res.status(201).send({
-    message: 'Pedido Adicionado com Successo',
+    message: 'Pedido Criado com Successo',
     body: {
       order: { id_produto, quantidade }
       
     },
   });
 };
+///
 
-//  Lista todos os order:
+/* export default axios.create({
+  baseURL: "https://api.yelp.com/v3/businesses/search",
+  headers: {
+    Authorization:
+      "Bearer ..."
+  }
+}); */
+
+/* axios.defaults.baseURL = 'https://api.example.com';
+axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+axios.defaults.headers.authorization = `Bearer ${token}`; */
+
+/* 
+////Get All Orders
 exports.listAllOrders = async (req, res) => {
-    const response = await db.query(
-      'SELECT * FROM orders ORDER BY id_order ASC',
-      //'SELECT * FROM order ORDER BY nome DESC',
-    );
-    res.status(200).send(response.rows);
+  const url = 'https://api.plugg.to/orders';
+  const options = {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      Authorization: 'Bearer {ACCESS_TOKEN}',
+      'Content-Type': 'application/json'
+    }
   };
-  
-  //  Seleciona Pedido pelo Id:
-  exports.findOrderById = async (req, res) => {
-    const id_order = parseInt(req.params.id);
-    const response = await db.query(
-      'SELECT * FROM orders WHERE id_order = $1',
-      [id_order],
-    );
-    res.status(200).send(response.rows);
-  };
-  
-  //  Atualiza um Pedido pelo Id: --Rota apenas para testes
-  exports.updateOrderById = async (req, res) => {
-    const id_order = parseInt(req.params.id);
-    const { id_produto, quantidade } = req.body;
-  
-    const response = await db.query(
-      'UPDATE orders SET id_produto = $1, quantidade = $2 WHERE id_produto = $3',
-      [id_produto, quantidade, id_order]
-    );
-  
-    res.status(200).send({ 
-    message: 'Pedido Atualizado com Successo', 
-    body: {
-      order: { id_order, id_produto, quantidade }
-    },
-  });
+  fetch(url, options)
+  .then(res => res.json())
+  .then(json => console.log(json))
+  .catch(err => console.error('error:' + err));
 };
-  
-  ////Excluí um Pedido pelo Id:
-  exports.deleteOrderById = async (req, res) => {
-    const id_order = parseInt(req.params.id);
-    await db.query('DELETE FROM orders WHERE id_order = $1', 
-    [id_order]
-      );
-  
-    res.status(200).send({ message: 'Pedido Excluído com Successo', id_order });
-  };
+
+////Get One Order For ID
+exports.findOrderById = async (req, res) => {
+//const url = 'https://api.plugg.to/orders';
+const url = 'https://api.plugg.to/orders/plugg_order_id';
+const options = {
+  method: 'GET',
+  headers: {
+    Accept: 'application/json',
+    Authorization: 'Bearer {ACCESS_TOKEN}',
+    'Content-Type': 'application/json'
+  }
+};
+  fetch(url, options)
+  .then(res => res.json())
+  .then(json => console.log(json))
+  .catch(err => console.error('error:' + err));
+}; 
+
+////Status Update Order
+exports.updateOrderById = async (req, res) => {  
+  const url = 'https://api.plugg.to/orders/plugg_id';
+  const options = {
+    method: 'PUT',
+    headers: {
+    Accept: 'application/json',
+    Authorization: 'Bearer {ACCESS_TOKEN}',
+    'Content-Type': 'application/json'
+  }
+};
+  fetch(url, options)
+  .then(res => res.json())
+  .then(json => console.log(json))
+  .catch(err => console.error('error:' + err));
+};
+
+
+////----Order receipt confirmation----////
+exports.createOrder = async (req, res) => { 
+const url = 'https://api.plugg.to/orders/plugg_id_order';
+const options = {
+  method: 'PUT',
+  headers: {
+    Accept: 'application/json',
+    Authorization: 'Bearer {ACCESS_TOKEN}',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({external: 'external id', ack: true})
+};
+  fetch(url, options)
+  .then(res => res.json())
+  .then(json => console.log(json))
+  .catch(err => console.error('error:' + err));
+};
+ */
