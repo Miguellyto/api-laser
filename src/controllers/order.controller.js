@@ -54,9 +54,10 @@ exports.findOrderById = async (req, res) => {
 };
 
 // Get All Orders
-exports.listAllOrders = async () => {
+exports.listAllOrders = async (req, res) => {
   const options = {
   method: 'GET',
+  // url: 'https://jsonplaceholder.typicode.com/posts/',
   url: 'http://jsonplaceholder.typicode.com/users',
   headers: {
     Accept: 'application/json',
@@ -67,8 +68,17 @@ exports.listAllOrders = async () => {
 request(options, (error, response, body) => {
   if (error) throw new Error(error);
 
-  console.log(body);
+  // console.log(req.body);
+  // res.json(body);
+  res.status(200).send(body);
   
+  // res.json({
+  //   message: '',
+  //   body: {
+  //     order: { body }
+  //   },
+  // });
+
 });
 };
 
