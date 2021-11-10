@@ -82,6 +82,25 @@ request(options, (error, response, body) => {
 });
 };
 
+//  Lista todos os orders BD:
+exports.listAllOrders_bd = async (req, res) => {
+  const response = await db.query(
+    'SELECT * FROM titles ORDER BY id ASC',
+    //'SELECT * FROM titles ORDER BY title DESC',
+  );
+  res.status(200).send(response.rows);
+};
+
+//  Seleciona order pelo Id BD:
+exports.findOrderById_bd = async (req, res) => {
+  const id = parseInt(req.params.id);
+  const response = await db.query(
+    'SELECT * FROM titles WHERE id = $1',
+    [id],
+  );
+  res.status(200).send(response.rows);
+};
+
 ////Status Update Order
 
 ////----Order receipt confirmation----////
