@@ -2,15 +2,15 @@ const db = require("../config/database");
 const request = require('request');
 // const axios = require("axios").default;
 
-////Get One Order For ID ---OK
+////Get One Order end Created For ID ---OK
 exports.findOrderById = async (req, res) => {
   const { id } = req.params;
   /* const { id, title } = req.body; */
 
-  if (!req.params.id) { 
-    res.status(500); 
-    res.send({"Error": "No ID"}); 
- } 
+//   if (!req.params.id) { 
+//     res.status(500); 
+//     res.send({"Error": "No ID"}); 
+//  } 
 
   const options = {
     method: 'GET',
@@ -21,8 +21,8 @@ exports.findOrderById = async (req, res) => {
       Accept: 'application/json',
       Authorization: 'Bearer {ACCESS_TOKEN}',
       'Content-Type': 'application/json'
-    }
-  };
+          }
+      };
 
     request(options, (error, response, body) => { 
 
@@ -35,22 +35,24 @@ exports.findOrderById = async (req, res) => {
             // Conn Postgresql
             (async () => {
 
-              const { rows } = await db.query('INSERT INTO titles(id, title) values($1, $2)', 
-              [id, title])
+              const { rows } = await db.query('INSERT INTO users(id, name, email) values($1, $2, $3)', 
+               [id, name, email]);
+              //(error, resultado, field) => {
+              //if (error) { return res.status(500).send({error: error})}
 
-                  res.json({
-                  message: 'Pedido Criado com Successo',
-                  body: {
-                    order: { id, title }
-                  },
-                });
-                          
-            })().catch(err =>
-              setImmediate(() => {throw new err(err)})
-            )
-        } 
-    }
-); 
+                res.status(200).send({
+                message: 'Pedido Criado com Successo',
+                order: { id, name, email },
+               })
+              //}
+
+             })().catch(error => {
+               //console.log(error);
+               return res.status(400).send({error: error});
+             })
+          } 
+      }
+  ); 
 };
 
 // ==> Pagamento do Pedido:
@@ -84,18 +86,23 @@ exports.findOrderPgto = async (req, res) => {
               'INSERT INTO payments(payment_total, payment_installments, payment_method, payment_type, _id) values($1, $2, $3, $4, $5)', 
                [payment_total, payment_installments, payment_method, payment_type, _id])
 
-                   res.json({
-                   message: 'Pagamento Criado com Successo',
-                   body: {
-                    payments: {payment_total, payment_installments, payment_method, payment_type, _id}
-                   },
-                 });
-                
-             })().catch(err => setImmediate(() => {throw err}))
-          } 
-      }
-  ); 
-};
+              //(error, resultado, field) => {
+              //if (error) { return res.status(500).send({error: error})}
+
+                res.status(200).send({
+                  message: 'Pagamento Atualizado com Successo',
+                  order: { id, name, email },
+                 })
+                //}
+  
+               })().catch(error => {
+                 //console.log(error);
+                 return res.status(400).send({error: error});
+               })
+            } 
+        }
+    ); 
+  };
 
 //  ==> GET do Pedido Atualizado:
 exports.updatedOrderById = async (req, res) => {
@@ -157,17 +164,19 @@ exports.updateOrderById = async (req, res) => {
               WHERE id = $2`, 
 
                [status, id, shipping_method, track_code, track_url, date_shipped, nfe_key, nfe_link, nfe_number, nfe_serie, nfe_date]);
+              //(error, resultado, field) => {
+              //if (error) { return res.status(500).send({error: error})}
 
-                   res.json({
-                   message: 'Pedido Atualizado com Successo',
-                   body: {
-                     order: {
-                      status, 
-                      id, shipping_method, track_code, track_url, date_shipped, nfe_key, nfe_link, nfe_number, nfe_serie, nfe_date}
-                   },
-                 });
-                
-             })().catch(err => setImmediate(() => {throw err}))
+              res.status(200).send({
+                message: 'Pedido Atualizado com Successo',
+                order: { id, name, email },
+               })
+              //}
+
+             })().catch(error => {
+               //console.log(error);
+               return res.status(400).send({error: error});
+             })
           } 
       }
   ); 
