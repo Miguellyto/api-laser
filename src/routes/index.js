@@ -3,7 +3,7 @@ const router = express.Router();
 
 router.get('/api', (req, res) => {
   res.status(200).send({
-    message: 'API LASER Node.js + PostgreSQL',
+    message: 'API LASER',
     version: '1.0.0',
   });
 });
