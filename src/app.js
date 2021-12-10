@@ -28,7 +28,7 @@ app.use('/', productRoute);
 app.use('/', orderRoute);
 
 app.use((req, res, next) => {
-    const erro = new Error('Servidor Não encontrado. Verifique a rota e tente novamente!');
+    const erro = new Error('Servidor Não Encontrado.');
     erro.status = 404;
     next(erro);
 });
