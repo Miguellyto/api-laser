@@ -50,7 +50,8 @@ exports.findOrderById = async (req, res) => {
 
              })().catch(error => {
                //console.log(error);
-               return res.status(400).send({error: error});
+               //return res.status(400).send({error: error});
+               return res.status(400).json({error: 'The Specified Order ID Already Exists!'});
              })
           } 
       }
@@ -100,6 +101,7 @@ exports.findOrderPgto = async (req, res) => {
                })().catch(error => {
                  //console.log(error);
                  return res.status(400).send({error: error});
+                 //return res.status(400).json({error: 'The Specified Order ID Already Exists!'});
                })
             } 
         }
@@ -178,6 +180,7 @@ exports.updateOrderById = async (req, res) => {
              })().catch(error => {
                //console.log(error);
                return res.status(400).send({error: error});
+               //return res.status(400).json({error: 'The Specified Order ID Already Exists!'});
              })
           } 
       }
