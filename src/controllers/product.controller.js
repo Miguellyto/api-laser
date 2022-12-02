@@ -8,34 +8,34 @@ const moment = require('moment');
 //  Lista todos os products:
 exports.listAllProducts = async (req, res) => {
     const response = await db.query(
-      `select 
+      `SELECT 
       a.chave, 
       a.ean,
       '' as ncm,
       a.nome, 
       a.codigo,
-      'quantidade' as quantidade,
-      'preço especial' as preço_especial,
+      'QUANTIDADE' as quantidade,
+      'PREÇO ESPECIAL' as preço_especial,
       b.fator as preço,
       a.descricaogenerica,
       a.marca, 
-      'custo' as custo,
+      'CUSTO' as custo,
       a.prazogarantia,
-      'observacao' as observacao,
-      'link produto' as link_produto,
-      'acessivel' as acessivel,
+      'OBSERVAÇÃO' as observacao,
+      'LINK PRODUTO' as link_produto,
+      'ACESSIVEL' as acessivel,
       a.classe,   
-      'tempo manuseio' as tempo_manuseio,
-      'tempo fabricacao' as tempo_fabricacao,
+      'TEMPO MANUSEIO' as tempo_manuseio,
+      'TEMPO FABRICAÇÃO' as tempo_fabricacao,
       a.comprimento as comprimento,
       a.largura as largura,
       a.altura as altura,
       a.pesbruunid as peso,
-      'atributos' as atributos,
-      'fotos' as fotos,
-      'tabelas de preco' as tabela_preco,
+      'ATRIBUTOS' as atributos,
+      'FOTOS' as fotos,
+      'TABELA PREÇO' as tabela_preco,
       'deposito' as deposito,
-      'variacoes' as variacoes
+      'VARIAÇÕES' as variacoes
       from RECURSO a 
       join fator b
       on a.chave = b.recursoorig
@@ -53,34 +53,34 @@ exports.listAllProducts = async (req, res) => {
   exports.findProductById = async (req, res) => {
     const sku = parseInt(req.params.id);
     const response = await db.query(
-      `select 
+      `SELECT 
       a.chave, 
       a.ean,
       '' as ncm,
       a.nome, 
       a.codigo,
-      'quantidade' as quantidade,
-      'preço especial' as preço_especial,
+      'QUANTIDADE' as quantidade,
+      'PREÇO ESPECIAL' as preço_especial,
       b.fator as preço,
       a.descricaogenerica,
       a.marca, 
-      'custo' as custo,
+      'CUSTO' as custo,
       a.prazogarantia,
-      'observacao' as observacao,
-      'link produto' as link_produto,
-      'acessivel' as acessivel,
+      'OBSERVAÇÃO' as observacao,
+      'LINK PRODUTO' as link_produto,
+      'ACESSIVEL' as acessivel,
       a.classe,   
-      'tempo manuseio' as tempo_manuseio,
-      'tempo fabricacao' as tempo_fabricacao,
+      'TEMPO MANUSEIO' as tempo_manuseio,
+      'TEMPO FABRICAÇÃO' as tempo_fabricacao,
       a.comprimento as comprimento,
       a.largura as largura,
       a.altura as altura,
       a.pesbruunid as peso,
-      'atributos' as atributos,
-      'fotos' as fotos,
-      'tabelas de preco' as tabela_preco,
-      'deposito' as deposito,
-      'variacoes' as variacoes
+      'ATRIBUTOS' as atributos,
+      'FOTOS' as fotos,
+      'TABELA PREÇO' as tabela_preco,
+      'DEPOSITO' as deposito,
+      'VARIAÇOES' as variacoes
       from RECURSO a 
       join fator b
       on a.chave = b.recursoorig
